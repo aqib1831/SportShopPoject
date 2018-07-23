@@ -19,6 +19,9 @@
 <body>
     <div class="navbar navbar-inverse" role="navigation">
         <a class="navbar-brand" href="#">SPORTS STORE</a>
+        <div class="pull-right">
+            @await Component.InvokeAsync("CartSummary")
+        </div>
     </div>
     <div class="row panel">
         <div id="categories" class="col-xs-3">

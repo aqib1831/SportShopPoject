@@ -12,27 +12,30 @@ namespace SportsShop.Controllers
     public class CartController : Controller
     {
         private IProductRepository repository;
-        public CartController(IProductRepository repos)
+        private Cart cart;
+        public CartController(IProductRepository repos, Cart cartService)
         {
             repository = repos;
+            cart = cartService;
         }
 
         public ViewResult Index(string returnUrl)
         {
             return View(new CartIndexViewModel
             {
-                Cart = GetCart(),
+                Cart = cart,
                 ReturnUrl = returnUrl
             });
         }
-        public RedirectToActionResult AddToCart(int productId,string returnUrl)
+        public RedirectToActionResult AddToCart(int ProductID, string returnUrl)
         {
-            Product product = repository.Products.FirstOrDefault(x => x.ProductID == productId);
+            Product product = repository.Products.FirstOrDefault(x => x.ProductID == ProductID);
             if (product != null)
             {
-                Cart cart = GetCart();
                 cart.AddItem(product, 1);
-                SaveCart(cart);
+                //Cart cart = GetCart();
+                //cart.AddItem(product, 1);
+                //SaveCart(cart);
             }
             return RedirectToAction("Index", new { returnUrl });
         }
@@ -42,9 +45,10 @@ namespace SportsShop.Controllers
             .FirstOrDefault(p => p.ProductID == productId);
             if (product != null)
             {
-                Cart cart = GetCart();
                 cart.RemoveLine(product);
-                SaveCart(cart);
+                //Cart cart = GetCart();
+                //cart.RemoveLine(product);
+                //SaveCart(cart);
             }
             return RedirectToAction("Index", new { returnUrl });
         }

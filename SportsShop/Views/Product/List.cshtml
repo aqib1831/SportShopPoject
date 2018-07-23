@@ -11,7 +11,7 @@
         </h3>
         <form id="@p.ProductID" asp-action="AddToCart"
               asp-controller="Cart" method="post">
-            <input type="hidden" asp-for="@p.ProductID" />
+            <input type="hidden" asp-for="@p.ProductID" name="ProductID" />
             <input type="hidden" name="returnUrl"
                    value="@ViewContext.HttpContext.Request.PathAndQuery()" />
             <span class="lead">
